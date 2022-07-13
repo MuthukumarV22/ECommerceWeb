@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Home";
+
+}
+<img style="height:320px;width:100%" src="../ProductImg/224249507posterV21.jpg" alt="First slide">
+<br />
+<br />
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group">
+                        <div><label style="margin-right:3px;">Search Products</label></div>
+                        <input type="text" id="search" name="search" style="height: 32px;width:800px; font-size: 14pt;margin-right:4px;" />
+                        @*<button type="submit" value="Search" class="btn btn-success"></button>*@
+                        <input type="submit" value="Search" class="mr-2 btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row product-container">
+    @foreach (var item in ViewBag.Products)
+    {
+        <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+            <div class="thumbnail product-item" style="height:355px">
+                <img class="img-responsive" title="Product Image" style="cursor:pointer;height:160px;width:100%"
+                     src="@Url.Content(item.ProductImage)" />
+                <div class="caption">
+
+                    <h5>@item.ProductName</h5>
+                    <p>Type <strong>@item.Technology G</strong></p>
+                    <p>RAM/Storage <strong>@item.RAM GB/ @item.Internal GB</strong></p>
+                    <p>Rs <strong>@item.Price /-</strong></p>
+                    
+                    <div>
+                        @if (item.Quantity > 0)
+                        {
+                            <button type="submit" class="btn btn-success" style="color:white;">
+                                @Html.ActionLink("Buy", "Buy", "Home", new { productId = item.ProductId }, FormMethod.Post)
+                            </button>
+                            <button type="submit" class="pull-right">
+                                @Html.ActionLink("Add To Cart", "AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post)
+                            </button>
+                            @*using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId, url = "Index" }, FormMethod.Post))
+                                {
+                                    <button type="submit" class="pull-right">Add to cart</button>
+                                }*@
+
+                        }
+
+                    </div>
+                    <div class="product-item-badge">
+                        @if (item.Quantity > 0)
+                        {
+                            <p>Available</p>
+                        }
+                        else
+                        {
+                            <p>Not Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

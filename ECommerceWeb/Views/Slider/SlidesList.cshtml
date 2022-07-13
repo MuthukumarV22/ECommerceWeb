@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ECommerceWeb.Tble_SlideImage>
+
+@{
+    ViewBag.Title = "SlidesList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Slides List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary mr-2" })
+</p>
+
+<h4 class="text-success">@TempData["msg"]</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            S.No
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SlideTitle)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.slideImage)
+        </th>*@
+        <th>Action</th>
+    </tr>
+    @if (Model != null)
+    {
+        int count = 1;
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SlideTitle)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.slideImage)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.SlideId }, new { @class = "btn btn-primary mr-2" }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.SlideId }, new { @class = "btn btn-primary " })*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.SlideId }, new { @class = "btn btn-danger " })
+            </td>
+               
+            </tr>
+            { count = count + 1; }
+        }
+    }
+
+    </table>
